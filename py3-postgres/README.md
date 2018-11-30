@@ -46,14 +46,14 @@ $ psql -U postgres -w
 ## show databases
 postgres=# \l
                                       List of databases
-        Name        |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
---------------------+----------+----------+-------------+-------------+-----------------------
- jprime_development | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 |
- postgres           | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 |
- template0          | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 | =c/postgres          +
-                    |          |          |             |             | postgres=CTc/postgres
- template1          | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 | =c/postgres          +
-                    |          |          |             |             | postgres=CTc/postgres
+        Name         |  Owner   | Encoding |   Collate   |    Ctype    |   Access privileges
+---------------------+----------+----------+-------------+-------------+-----------------------
+ service_development | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 |
+ postgres            | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 |
+ template0           | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 | =c/postgres          +
+                     |          |          |             |             | postgres=CTc/postgres
+ template1           | postgres | UTF8     | ja_JP.UTF-8 | ja_JP.UTF-8 | =c/postgres          +
+                     |          |          |             |             | postgres=CTc/postgres
 (4 rows)
 
 ## Let's create a tests database
