@@ -24,7 +24,7 @@ services:
     environment:
       TZ: JST-9
       POSTGRES_INITDB_ARGS: '--encoding=UTF-8 --lc-collate=ja_JP.UTF-8 --lc-ctype=ja_JP.UTF-8 --lc-messages=ja_JP.UTF-8'
-      POSTGRES_DB: jprime_development
+      POSTGRES_DB: service_development
     sysctls:
       net.core.somaxconn: 8192
     expose:
