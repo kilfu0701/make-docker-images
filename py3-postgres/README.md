@@ -1,12 +1,12 @@
 ## Build image and upload to docker hub
 ```sh
-docker build -t kilfu0701/py3-postgres .
-docker push kilfu0701/py3-postgres
+docker build -t <YOURNAME>/py3-postgres .
+docker push <YOURNAME>/py3-postgres
 ```
 
 ## Run image after built
 ```sh
-docker run -it kilfu0701/py3-postgres /bin/bash
+docker run -it <YOURNAME>/py3-postgres /bin/bash
 ```
 
 ## Use docker hub image with docker-compose
@@ -17,7 +17,7 @@ version: '3'
 
 services:
   local-dev:
-    image: kilfu0701/py3-postgres
+    image: <YOURNAME>/py3-postgres
     container_name: local-dev
     volumes:
       - ./volumes/postgres/data:/var/lib/postgresql/data:rw
