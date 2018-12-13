@@ -2,16 +2,31 @@ FROM alpine:3.8
 LABEL Maintainer="BoRu Su <kilfu0701@gmail.com>"
 
 RUN apk add --update alpine-sdk
+RUN apk add --no-cache gcc g++ libxml2 libxml2-dev libxslt-dev
+
+# PIL deps
+RUN set -ex; \
+	apk add --no-cache \
+		build-base \
+		jpeg-dev \
+		zlib-dev \
+		freetype-dev \
+		lcms2-dev \
+		openjpeg-dev \
+		tiff-dev \
+		tk-dev \
+		tcl-dev \
+		harfbuzz-dev \
+		fribidi-dev
 
 RUN apk add --no-cache python3 python3-dev && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
-    if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-    rm -r /root/.cache
-
-RUN pip install requests pandas numpy bs4 pyyaml SQLAlchemy==1.2.14
+	python3 -m ensurepip && \
+	rm -r /usr/lib/python*/ensurepip && \
+	pip3 install --upgrade pip setuptools && \
+	if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
+	if [[ -f /usr/bin/python ]]; then unlink /usr/bin/python; fi && \
+	if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
+	rm -r /root/.cache
 
 # alpine includes "postgres" user/group in base install
 #   /etc/passwd:22:postgres:x:70:70::/var/lib/postgresql:/bin/sh
@@ -78,6 +93,7 @@ RUN set -ex \
 #		tcl-dev \
 		util-linux-dev \
 		zlib-dev \
+		git \
 	\
 	&& cd /usr/src/postgresql \
 # update "DEFAULT_PGSOCKET_DIR" to "/var/run/postgresql" (matching Debian)
@@ -156,6 +172,26 @@ VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
+
+# pip
+RUN pip install beautifulsoup4==4.6.3 \
+		bs4==0.0.1 \
+		certifi==2018.11.29 \
+		chardet==3.0.4 \
+		idna==2.7 \
+		lxml==4.2.5 \
+		numpy==1.15.4 \
+		pandas==0.23.4 \
+		psycopg2==2.7.6.1 \
+		python-dateutil==2.7.5 \
+		pytz==2018.7 \
+		PyYAML==3.13 \
+		requests==2.20.1 \
+		six==1.11.0 \
+		SQLAlchemy==1.2.14 \
+		urllib3==1.24.1 \
+		pillow==5.3.0
+
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 5432
